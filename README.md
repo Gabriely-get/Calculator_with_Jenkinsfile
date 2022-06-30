@@ -2,13 +2,13 @@
 
 Project using the Calculator repository and running in 03 Jenkins jobs. <br> Job 01: The artifact of the calculator project is uploaded on Jfrog Artifactory <br> Job 02: The artifact is downloaded and a packer image of this artifact is built and uploaded to a Docker Hub repository <br> Job 03: The calculator image is pulled from Docker Hub and run
 
-- [Required](#Required)
+- [Required](#required)
 - [Configuration](#configuration)
   - [Jfrog](#jfrog)
   - [Jenkins](#jenkins)
-- [Running with Jenkinsfile](#Running with Jenkinsfiles)
+- [Running with Jenkinsfile](#running-with-jenkinsfiles)
 - [Endpoints](#endpoints)
-- [Extra](#Extra references)
+- [Extra](#extra-references)
 
 <hr>
 
