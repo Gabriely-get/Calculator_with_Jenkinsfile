@@ -1,0 +1,12 @@
+---
+- name: "build-calculator"
+  hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+
+    - name: install java
+      apt:
+        name: openjdk-8-jre-headless
+      when: ansible_distribution == "Ubuntu"
