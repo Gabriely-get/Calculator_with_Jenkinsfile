@@ -27,7 +27,7 @@ pipeline {
 
         stage('Packer Build Image') {
             steps {
-                sh '/var/jenkins_home/tools/biz.neustar.jenkins.plugins.packer.PackerInstallation/packer_1.8.2_linuxamd64/packer build -var "REPOSITORY=$DOCKERHUB_REPOSITORY" -var "USERNAME=$DOCKERHUB_CREDENTIALS_USR" -var "PASSWORD=$DOCKERHUB_CREDENTIALS_PSW" "build_image.pkr.hcl"'
+                sh '/var/jenkins_home/tools/biz.neustar.jenkins.plugins.packer.PackerInstallation/packer_1.8.2_linuxamd64/packer build -var "REPOSITORY=$DOCKERHUB_REPOSITORY" -var "USERNAME=$DOCKERHUB_CREDENTIALS_USR" -var "PASSWORD=$DOCKERHUB_CREDENTIALS_PSW" "./build_image.pkr.hcl"'
             }
         }
     }
