@@ -19,15 +19,15 @@ build {
   sources = ["source.docker.ubuntu"]
 
   provisioner "shell" {
-    script = "/var/jenkins_home/workspace/Download_Calculator_Artifactory/install-ansible.sh"
+    script = "install-ansible.sh"
   }
 
   provisioner "ansible-local" {
-    playbook_file = "/var/jenkins_home/workspace/Download_Calculator_Artifactory/common.yml"
+    playbook_file = "common.yml"
   }
 
   provisioner "file" {
-    source      = "/var/jenkins_home/workspace/Download_Calculator_Artifactory/exploded_calculator/Calculator-shadow-1.0/lib/Calculator-1.0-all.jar"
+    source      = "Calculator-1.0-all.jar"
     destination = "/calculator.jar"
   }
 
