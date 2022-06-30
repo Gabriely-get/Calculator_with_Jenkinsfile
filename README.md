@@ -1,7 +1,8 @@
 # Running Karyon calculator with Jenkin's job
 
-Project using the Calculator repository and running in 03 Jenkins jobs. <br> Job 01: The artifact of the calculator project is uploaded on Jfrog Artifactory <br> Job 02: The artifact is downloaded and a packer image of this artifact is built and uploaded to a Docker Hub repository <br> Job 03: The calculator image is pulled from Docker Hub and run
+## Sumary
 
+- [Resume](#Resume)
 - [Required](#required)
 - [Configuration](#configuration)
   - [Jfrog](#jfrog)
@@ -11,6 +12,15 @@ Project using the Calculator repository and running in 03 Jenkins jobs. <br> Job
 - [Extra](#extra-references)
 
 <hr>
+
+## Resume
+
+Explanation video: https://youtu.be/zAW2rsQFClc
+
+Project using the Calculator repository and running in 03 Jenkins jobs.
+- Job 01: The artifact of the calculator project is uploaded on Jfrog Artifactory
+- Job 02: The artifact is downloaded and a packer image of this artifact is built and uploaded to a Docker Hub repository
+- Job 03: The calculator image is pulled from Docker Hub and run
 
 ## Required
 
@@ -94,25 +104,15 @@ The endpoints for the calculator is set by Get method and available on *http://l
 
 For calculate is necessary provide values for: *value1*, *value2* and *operation*
 
-- SUM
+- SUM: http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=SUM
 
-` http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=SUM`
+- SUB: http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=SUB
 
-- SUB
+- DIVISION: http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=DIVISION
 
-`http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=SUB`
+- MULTIPLY: http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=MULTIPLY
 
-- DIVISION
-
-`http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=DIVISION`
-
-- MULTIPLY
-
-`http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=MULTIPLY`
-
-- POW
-
-`http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=POW`
+- POW: http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=POW
 
 ## Extra References
 
