@@ -1,0 +1,19 @@
+pipeline {
+
+   agent any
+
+   stages {
+      stage('Download Image from Docker Hub') {
+         steps {
+            sh 'docker pull gabsss/calculator-rxnetty:latest'
+         }
+      }
+
+      stage('Run Docker Image') {
+         steps {
+            sh 'docker rm -f calculator'
+            sh 'docker run --name calculator -p 8888:8888 gabsss/calculator-rxnetty:latest'
+         }
+      }
+   }
+}

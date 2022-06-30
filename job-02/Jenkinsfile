@@ -1,0 +1,34 @@
+pipeline {
+
+    agent any
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('Dockerhub_credentials')
+        DOCKERHUB_REPOSITORY = credentials('repository_name')
+    }
+
+    stages {
+
+        stage('Download Artifact from JFrog') {
+            steps {
+                rtDownload (
+                    serverId: "Calculator Artifactory",
+                    spec: """{
+                        "files": [
+                            {
+                                "pattern": "generic-calculator-build/Calculator-1.0-all.jar",
+                                "target": "Calculator-1.0-all.jar"
+                            }
+                        ]
+                    }"""
+                )
+            }
+        }
+
+        stage('Packer Build Image') {
+            steps {
+                sh '/var/jenkins_home/tools/biz.neustar.jenkins.plugins.packer.PackerInstallation/packer_1.8.2_linuxamd64/packer build -var "REPOSITORY=$DOCKERHUB_REPOSITORY" -var "USERNAME=$DOCKERHUB_CREDENTIALS_USR" -var "PASSWORD=$DOCKERHUB_CREDENTIALS_PSW" "build_image.pkr.hcl"'
+            }
+        }
+    }
+}
