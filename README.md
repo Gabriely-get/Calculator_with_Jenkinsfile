@@ -6,9 +6,9 @@ Project using the Calculator repository and running in 03 Jenkins jobs. <br> Job
 - [Configuration](#configuration)
   - [Jfrog](#jfrog)
   - [Jenkins](#jenkins)
-- [Running with Jenkinsfiles](#Running with Jenkinsfiles)
+- [Running with Jenkinsfile](#Running with Jenkinsfiles)
 - [Endpoints](#endpoints)
-- [Extra](#extra)
+- [Extra](#Extra references)
 
 <hr>
 
