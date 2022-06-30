@@ -72,7 +72,7 @@ Project using the Calculator repository and running in 03 Jenkins jobs. <br> Job
           <br> Now you should see the message: *Found JFrog Artifactory* <br> <br>
     3. **Packer**
        1. Go to `Manage Jenkins` -> `Global Tool Configuration` -> Packer -> `Add Packer`
-       2. Name E.g.: *packer_job02* -> *Install automatically* -> Choose a version compatible with your S.O. _E.g.: linux (amd64)_ -> Save 
+       2. Name as, E.g.: *packer_1.8.2_linuxamd64* -> *Install automatically* -> Choose a version compatible with your S.O. _E.g.: linux (amd64)_ -> Save 
 
 ## Running with Jenkinsfiles
 > Running with Jenkinsfiles, these following files won't be needed in Calculator project: build_image.pkr.hcl, common.yml and install-ansible.sh
