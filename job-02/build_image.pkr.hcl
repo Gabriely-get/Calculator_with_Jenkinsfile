@@ -19,11 +19,11 @@ build {
   sources = ["source.docker.ubuntu"]
 
   provisioner "shell" {
-    script = "install-ansible.sh"
+    script = "./job-02/install-ansible.sh"
   }
 
   provisioner "ansible-local" {
-    playbook_file = "common.yml"
+    playbook_file = "./job-02/common.yml"
   }
 
   provisioner "file" {
