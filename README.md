@@ -6,13 +6,9 @@ Project using the Calculator repository and running in 03 Jenkins jobs. <br> Job
 - [Configuration](#configuration)
   - [Jfrog](#jfrog)
   - [Jenkins](#jenkins)
-- [Running with Jenkinsfile](#Running with Jenkinsfile)
-- [Running without Jenkinsfile](#Running without Jenkinsfile)
-  - [Jobs](#jobs)
-    - [Job 01](#Creating job 01)
-    - [Job 02](#Creating job 02)
-    - [Job 03](#Creating job 03)
+- [Running with Jenkinsfiles](#Running with Jenkinsfiles)
 - [Endpoints](#endpoints)
+- [Extra](#extra)
 
 <hr>
 
@@ -78,57 +74,19 @@ Project using the Calculator repository and running in 03 Jenkins jobs. <br> Job
        1. Go to `Manage Jenkins` -> `Global Tool Configuration` -> Packer -> `Add Packer`
        2. Name E.g.: *packer_job02* -> *Install automatically* -> Choose a version compatible with your S.O. _E.g.: linux (amd64)_ -> Save 
 
-## Running without Jenkinsfile
+## Running with Jenkinsfiles
+> Running with Jenkinsfiles, these following files won't be needed in Calculator project: build_image.pkr.hcl, common.yml and install-ansible.sh
 
-### Jobs
-
-#### Creating job 01
-
+### Creating jobs
 1. On *Dashboard* click in `New Item`
-2. Set a name. E.g.: *Automating_Calculator_Artifactory*, choose `Freestyle Project` and click `OK`
-3. Go to `Source Code Management` -> Git -> Paste *https://github.com/Gabriely-get/Calculator.git* -> On *Branches to build*  change **/master* to **/main*
-4. Go to `Build Environment` -> `Gradle-Artifactory Integration` -> Choose the configured artifactory -> Click on *Refresh Repositories* and select the calculator artifactory
-5. Go to `Build` -> `Add build step` -> `Invoke Gradle script` -> Choose the configured gradle on *Gradle Version* -> in *Tasks* type *test*
-6. Repeat _step 4_ but type *build* int the new *Tasks*
-<br> <br>
-#### Creating job 02
-
-1. On *Dashboard* click in `New Item`
-2. Set a name. E.g.: *Download_Calculator-RxNetty*, choose `Freestyle Project` and click `OK`
-3. Go to `Source Code Management` -> Git -> Paste *https://github.com/Gabriely-get/Calculator.git* -> On *Branches to build*  change **/master* to **/main*
-4. Go to `Build Environment` -> `Use secret text(s) or file(s)` -> 
-   1. Add *Secret text*. Name as *repository* and choose the *repository credential*
-   2. Add *Username and password (separated)*. Choose the docker hub credential and name as *username* and *password* 
-5. Go to `Build Environment` -> `Generic-Artifactory Integration` -> On *Download Details* choose the configured Artifactory, then go to *Download spec source* and choose *Job Configuration* and paste the Spec:
-   <pre> 
-      {
-          "files": [
-              {
-                  "pattern": "generic-calculator-build/com.gabrielyget/Calculator/1.0/Calculator-shadow-1.0.tar",
-                  "flat": "true",
-                  "target": "exploded_calculator/",
-                  "explode": "true"
-              }
-          ]
-      }
-   </pre>
-6. On `Post-build Actions` -> Choose the *Packer installation* -> Select *Packer Template File* -> In *Additional Parameters* paste this code line and *Save*.
-   1.     -var REPOSITORY=$repository  -var USERNAME=$username  -var PASSWORD=$password
-<br>
-
-#### Creating job 03
-1. On *Dashboard* click in `New Item`
-2. Set a name. E.g.: *Pull_and_Run_Calculator_Artifactory*, choose `Freestyle Project` and click `OK`
-3. Go to `Build` -> `Execute Shell` -> Paste the code
-   <pre>
-   if [[ "$(docker images -q gabsss/calculator-rxnetty:latest)" == "" ]]; then
-      docker pull gabsss/calculator-rxnetty:latest
-      docker run --name calculator -p 8888:8888 gabsss/calculator-rxnetty:latest
-   else
-      docker rm -f calculator
-      docker run --name calculator -p 8888:8888 gabsss/calculator-rxnetty:latest
-   fi
-   </pre>
+2. Set a name, choose `Pipeline` and click `OK`
+   >Choose appropriated names. E.g.: *Automating_Calculator_Pipeline*; *Build_Calculator_Pipeline*.
+3. Go to `Pipeline` -> `Definition` -> *Pipeline script from SCM* -> `SCM` -> Git -> Paste https://github.com/Gabriely-get/Calculator_with_Jenkinsfile.git
+4. Change the branch **/master* to **/main*
+5. Choose the Jenkinsfile path. The steps to create the 03 jobs are the same, the only thing that will change is the path:
+   1. ./job-01/Jenkinsfile
+   2. ./job-02/Jenkinsfile
+   3. ./job-03/Jenkinsfile
 
 ## Endpoints
 The endpoints for the calculator is set by Get method and available on *http://localhost:8080/calculate*
@@ -155,3 +113,8 @@ For calculate is necessary provide values for: *value1*, *value2* and *operation
 - POW
 
 `http://localhost:8888/calculate?value1=<value>&value2=<value>&operation=POW`
+
+## Extra References
+
+- https://devopscube.com/run-docker-in-docker/
+- https://docs.docker.com/storage/bind-mounts/
